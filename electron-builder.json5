@@ -1,0 +1,93 @@
+// @see https://www.electron.build/configuration/configuration
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "ee.chat",
+  "asar": true,
+  "productName": "eechat",
+  "directories": {
+    "output": "release/${version}"
+  },
+  "files": [
+    "dist-electron",
+    "dist"
+  ],
+  "mac": {
+    "icon": "icon/icons/mac/AppIcon.icns",
+    // "target": [
+    //   "dmg",
+    // ],
+    "target": [
+      {
+        "target": "zip",
+        // "target": "dmg",
+        "arch": [
+          // "x64",
+          "arm64"
+        ]
+      }
+    ],
+    "artifactName": "${productName}-mac-${arch}-${version}-Installer.${ext}",
+    "identity": null
+  },
+  "win": {
+    "icon": "icon/icons/win/icon.ico",
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "artifactName": "${productName}-windows-${arch}-${version}-Setup.${ext}",
+    "asarUnpack": [],
+    // "extraResources": [{
+    //   "from": "dist-electron/server",
+    //   "to": "server"
+    // }, {
+    //   "from": "node_modules",
+    //   "to": "server/node_modules"
+    // }]
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "deleteAppDataOnUninstall": false
+  },
+  "linux": {
+    "target": [
+      "AppImage"
+    ],
+    "artifactName": "${productName}-linux-${arch}-${version}.${ext}"
+  },
+  "asarUnpack": [
+    // "node_modules/sqlite3/**/*"
+  ],
+  "extraResources": [{
+      "from": "dist-electron/server",
+      "to": "server"
+    }, {
+      "from": "node_modules",
+      "to": "server/node_modules"
+    }, {
+      "from": "dist-electron/main/bin",
+      // "to": "main/bin"
+      "to": "bin"
+    }
+  ],
+  "releaseInfo": {
+    // "releaseNotes": "更新日志： \n1.使用新的地址",
+    // "releaseDate": "2025-3-10"
+  },
+  "publish": [{
+    // "provider": "generic",
+    // "url": "https://g-electron-updater.oss-accelerate.aliyuncs.com/g-electron-updater"
+    // "url": "http://127.0.0.1:8080/"
+      "provider": "github",
+      "owner": "Lucassssss",
+      "repo": "eechat",
+      "private": false,
+      "releaseType": "release"
+  }]
+}
